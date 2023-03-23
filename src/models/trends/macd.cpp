@@ -31,7 +31,19 @@ namespace MACD
         float current_macd{MACD[MACD.size() - 1]};
         float current_macd_signal{MACD_SIGNAL[MACD_SIGNAL.size() - 1]};
         float current_macd_histogram{MACD_HISTOGRAM[MACD_HISTOGRAM.size() - 1]};
-
+        Serial.println("Hourly MACD:");
+        Serial.print("MACD: ");
+        Serial.println(current_macd);
+        Serial.print("MACD Signal: ");
+        Serial.println(current_macd_signal);
+        Serial.print("MACD Histogram: ");
+        Serial.println(current_macd_histogram);
+        Serial.print("MACD Slope: ");
+        Serial.println(macd_slope);
+        Serial.print("MACD Signal Slope: ");
+        Serial.println(macd_signal_slope);
+        Serial.print("MACD Histogram Slope: ");
+        Serial.println(macd_histogram_slope);
         if (macd_histogram_slope > MACD_FLAT_BUFFER)
         {
             if (current_macd >= MACD_OVERBOUGHT)
@@ -88,6 +100,20 @@ namespace MACD
         float current_macd{MACD[MACD.size() - 1]};
         float current_macd_signal{MACD_SIGNAL[MACD_SIGNAL.size() - 1]};
         float current_macd_histogram{MACD_HISTOGRAM[MACD_HISTOGRAM.size() - 1]};
+
+        Serial.println("Daily MACD:");
+        Serial.print("MACD: ");
+        Serial.println(current_macd);
+        Serial.print("MACD Signal: ");
+        Serial.println(current_macd_signal);
+        Serial.print("MACD Histogram: ");
+        Serial.println(current_macd_histogram);
+        Serial.print("MACD Slope: ");
+        Serial.println(macd_slope);
+        Serial.print("MACD Signal Slope: ");
+        Serial.println(macd_signal_slope);
+        Serial.print("MACD Histogram Slope: ");
+        Serial.println(macd_histogram_slope);
 
         if (macd_histogram_slope > MACD_FLAT_BUFFER)
         {

@@ -30,7 +30,11 @@ namespace RSI
 
         float current_rsi{RSI[RSI.size() - 1]};
         float current_rsi_ema{RSI_EMA[RSI_EMA.size() - 1]};
-
+        Serial.println("Hourly RSI");
+        Serial.println("RSI: " + String(current_rsi));
+        Serial.println("RSI EMA: " + String(current_rsi_ema));
+        Serial.println("RSI Slope: " + String(rsi_slope));
+        Serial.println("RSI EMA Slope: " + String(rsi_ema_slope));
         bool rsi_overbought{current_rsi >= RSI_OVERBOUGHT};
         bool rsi_oversold{current_rsi < RSI_OVERSOLD};
 
@@ -109,6 +113,12 @@ namespace RSI
 
         float current_rsi{RSI[RSI.size() - 1]};
         float current_rsi_ema{RSI_EMA[RSI_EMA.size() - 1]};
+
+        Serial.println("Daily RSI");
+        Serial.println("RSI: " + String(current_rsi));
+        Serial.println("RSI EMA: " + String(current_rsi_ema));
+        Serial.println("RSI Slope: " + String(rsi_slope));
+        Serial.println("RSI EMA Slope: " + String(rsi_ema_slope));
 
         bool rsi_overbought{current_rsi >= RSI_OVERBOUGHT};
         bool rsi_oversold{current_rsi <= RSI_OVERSOLD};
