@@ -1,7 +1,7 @@
 #include "models/logic.h"
 #include "models/base.h"
 #include "models/ta.h"
-#include "api.h"
+#include "api/alphavantage.h"
 #include "models/rsi.h"
 
 #define RSI_FLAT_BUFFER 0.25
@@ -94,6 +94,10 @@ namespace RSI
                 return Logic::Trend::FLAT;
             }
         }
+        else
+        {
+            return Logic::Trend::FLAT;
+        }
     }
 
     Logic::Trend daily_rsi_look(const char *symbol)
@@ -178,6 +182,10 @@ namespace RSI
             {
                 return Logic::Trend::FLAT;
             }
+        }
+        else
+        {
+            return Logic::Trend::FLAT;
         }
     }
 

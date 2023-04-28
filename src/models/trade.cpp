@@ -1,6 +1,6 @@
 #include "models/rsi.h"
 #include "models/macd.h"
-#include "api.h"
+#include "api/alpaca.h"
 
 namespace Trade
 {
@@ -46,13 +46,6 @@ namespace Trade
                 Serial.println(F("Buying long position..."));
                 float buying_power{Alpaca::buying_power()};
                 float buying_amount{buying_power * percentage};
-                // print all values
-                Serial.print(F("Buying power: "));
-                Serial.println(buying_power);
-                Serial.print(F("Percentage: "));
-                Serial.println(percentage);
-                Serial.print(F("Buying amount: "));
-                Serial.println(buying_amount);
                 Alpaca::order_market(up_stock, buying_amount, "buy");
                 Serial.println(F("Long position bought!"));
             }

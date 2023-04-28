@@ -1,5 +1,5 @@
 #include "api/client.h"
-#include "api/keys.h"
+#include "config.h"
 #include "api/json.h"
 #include <string>
 #include <map>
@@ -27,6 +27,8 @@ String build_query(const std::map<const char *, const char *> &args)
 
 namespace AlphaVantage
 {
+
+    uint8_t requests = 0;
 
     const char *rootCACertificate PROGMEM =
         "-----BEGIN CERTIFICATE-----\n"
@@ -67,19 +69,33 @@ namespace AlphaVantage
     DynamicJsonDocument
     get(const char *extension)
     {
+        if (requests >= 5)
+        {
+            Serial.println("AlphaVantage: Too many requests, waiting 60 seconds");
+            delay(60000);
+            requests = 0;
+        }
         String url{build_url(extension)};
 
         std::map<const char *, const char *> headers;
+        requests += 1;
 
         return Client_::get(url.c_str(), rootCACertificate, headers);
     }
 
     int post(const char *extension, const char *body)
     {
+        if (requests >= 5)
+        {
+            delay(60000);
+            requests = 0;
+        }
+
         String url{build_url(extension)};
 
         std::map<const char *, const char *> headers;
         headers["Content-Type"] = "application/json";
+        requests += 1;
 
         return Client_::post(url.c_str(), rootCACertificate, headers, body);
     }
@@ -101,13 +117,6 @@ namespace AlphaVantage
         String extension{build_query(args)};
         String url{build_url(extension.c_str())};
         DynamicJsonDocument response{get(url.c_str())};
-
-        if (response["Meta Data"] == nullptr)
-        {
-            Serial.println(F("AlphaVantage rate limit exceeded."));
-            delay(60000);
-            return hourly(symbol);
-        }
 
         JsonObject time_series{response[F("Time Series (60min)")]};
 

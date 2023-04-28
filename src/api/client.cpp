@@ -25,8 +25,8 @@ void add_headers(HTTPClient &https, std::map<const char *, const char *> headers
 
 namespace Client_
 {
-    WiFiClientSecure client;
-
+    WiFiClient client;
+    WiFiClientSecure client_secure;
     void init()
     {
         Serial.println(F("Connecting to WiFi"));
@@ -42,10 +42,10 @@ namespace Client_
 
     DynamicJsonDocument get(const char *url, const char *ca_cert, std::map<const char *, const char *> headers)
     {
-        client.setCACert(ca_cert);
+        client_secure.setCACert(ca_cert);
         HTTPClient https;
 
-        connect_to_server(https, client, url);
+        connect_to_server(https, client_secure, url);
         if (headers.size() > 0)
         {
             add_headers(https, headers);
@@ -76,10 +76,10 @@ namespace Client_
 
     int post(const char *url, const char *ca_cert, std::map<const char *, const char *> headers, const char *body)
     {
-        client.setCACert(ca_cert);
+        client_secure.setCACert(ca_cert);
         HTTPClient https;
 
-        connect_to_server(https, client, url);
+        connect_to_server(https, client_secure, url);
         add_headers(https, headers);
         https.addHeader(F("Content-Type"), F("application/json"));
 
@@ -109,10 +109,10 @@ namespace Client_
 
     int delete_(const char *url, const char *ca_cert, std::map<const char *, const char *> headers)
     {
-        client.setCACert(ca_cert);
+        client_secure.setCACert(ca_cert);
         HTTPClient https;
 
-        connect_to_server(https, client, url);
+        connect_to_server(https, client_secure, url);
         add_headers(https, headers);
 
         Serial.println(F("Sending DELETE request..."));

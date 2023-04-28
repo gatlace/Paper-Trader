@@ -1,7 +1,7 @@
 #include "models/logic.h"
 #include "models/base.h"
 #include "models/ta.h"
-#include "api.h"
+#include "api/alphavantage.h";
 
 #define MACD_FLAT_BUFFER 0.2
 #define MACD_FAST_PERIOD 12
